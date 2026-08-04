@@ -7,6 +7,7 @@
     Negative λ → opposite direction (flipped)
 
     PCA (Principal Component Analysis)--------> Reduce dimensions while preserving as much information (variance) as possible.
+    PCA finds new directions (principal components) where the data has the maximum variance.
 
     1)First build Covariance Matrix ----->The covariance matrix summarizes how all the features vary together. 
     (e.g how much does x varies, how much does y varies and how much does x and y varies together.)
@@ -62,7 +63,7 @@ print(f"Eigen Values: {eigenvals}")
 order = np.argsort(eigenvals)[::-1]
 variance = eigenvals[order] / eigenvals.sum() * 100
 
-print(f"PC1 explains {variance[0]:.2f}% variance")
+print(f"PC1 explains {variance[0]:.2f}% variance") #Explained variance tells us how much of the original data's information (variance) is captured by a principal component.
 print(f"PC2 explains {variance[1]:.2f}% variance")
 if variance[0] > 95:
     print("PC1 (this new dimension) alone is enough.")
