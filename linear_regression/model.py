@@ -130,8 +130,8 @@ plt.title("Correlation Heatmap")
 | -------: | ------------------------ |
 |   1      | No multicollinearity     |
 |  1 - 5   | Usually okay             |
-| 5 - 10   | Concerning               |
-|  > 10    | Strong multicollinearity |
+|  5 - 10  | Concerning               |
+|   > 10   | Strong multicollinearity |
 
 
 """
@@ -447,3 +447,33 @@ The linear regression model achieved an R² of 0.887 on the test set,
  The training R² (0.936) was higher than the test R² (0.887), but the relatively small gap of 0.049 suggests that severe overfitting is not present.
 
 """
+
+features_names = model.named_steps["preprocessor"].get_feature_names_out()
+coefficients = model.named_steps["regressor"].coef_
+
+coef_df = pd.DataFrame({
+    "Feature": features_names,
+    "Coefficient": coefficients
+})
+
+coef_df["Absolute"] = coef_df["Coefficient"].abs()
+
+# print(coef_df.sort_values("Absolute", ascending=False).head(20))
+
+
+print("\n--- Numerical coefficients ---")
+
+print(
+    coef_df[
+        coef_df["Feature"].str.startswith("num__")
+    ].sort_values("Absolute", ascending=False).head(15)
+)
+
+
+print("\n--- Categorical coefficients ---")
+
+print(
+    coef_df[
+        coef_df["Feature"].str.startswith("cat__")
+    ].sort_values("Absolute", ascending=False).head(15)
+)
