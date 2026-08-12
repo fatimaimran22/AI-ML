@@ -451,7 +451,7 @@ The linear regression model achieved an R² of 0.887 on the test set,
 features_names = model.named_steps["preprocessor"].get_feature_names_out()
 coefficients = model.named_steps["regressor"].coef_
 
-coef_df = pd.DataFrame({
+coef_df = pd.DataFrame({ 
     "Feature": features_names,
     "Coefficient": coefficients
 })
